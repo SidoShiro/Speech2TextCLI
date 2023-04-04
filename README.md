@@ -5,12 +5,12 @@
 1. Require Python
 2. Create venv and enter in venv
     ```sh
-    python -m venv venv
-    . venv/bin/activate
+    $ python -m venv venv
+    $ . venv/bin/activate
     ```
 3. Install requirements
     ```sh
-    pip install -r requirements.txt
+    (venv) $ pip install -r requirements.txt
     ```
 
 ## Run
@@ -19,11 +19,12 @@ With the venv activated.
 
 Usage:
 ```sh
-python app.py stuff.mp3
+(venv) $ python app.py stuff.mp3
 ```
 
 Result will be stored in stuff_transcribe_result.txt
 
+* [Check the demo](./DEMO.md)
 
 ### Run with model param
 
@@ -50,3 +51,6 @@ python app.py stuff.py base
 * Append all text result
 * Write to file result `stuff_transcribe_result.txt`
 * Print result to stdout
+
+> Once the process is done, you can clean `tmp_chunks_audio_speach2text/` folder
+
