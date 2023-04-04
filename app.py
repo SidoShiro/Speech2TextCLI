@@ -9,12 +9,6 @@ import time
 import shutil
 
 
-# Size of the model to run, uncomment, recomment when needed
-model = whisper.load_model("tiny", device="cpu")
-# model = whisper.load_model("base", device="cpu")
-# model = whisper.load_model("medium", device="cpu")
-# model = whisper.load_model("large", device="cpu")
-
 
 def chunk_any_audio_long(path: str, path_temp_folder: str):
     try:
@@ -50,7 +44,7 @@ def chunk_any_audio_long(path: str, path_temp_folder: str):
         index += 60
 
 
-def transcribe_from_temp_audio(path_temp_folder: str):
+def transcribe_from_temp_audio(model: object, path_temp_folder: str):
     files = os.listdir(path_temp_folder)
     # print(files)
     # files are in form : temp_NUMBER.mp3
@@ -60,15 +54,30 @@ def transcribe_from_temp_audio(path_temp_folder: str):
     for i in range(nn_chunks):
         file_to_process = "temp_" + str(i) + ".mp3"        
         print(f"{i}/{nn_chunks}: {file_to_process}")
-        res += inference_model(path_temp_folder + "/" + file_to_process) + "\n"
+        res += inference_model(model, path_temp_folder + "/" + file_to_process) + "\n"
     return res
 
-def inference_model(file_path: str):
+def inference_model(model: object, file_path: str):
     out = model.transcribe(file_path)
     # print(out)
     return out.get('text', 'N/A')
 
 def main():
+    if len(sys.argv) == 3:
+        if sys.argv[2] not in ["tiny", "small", "base", "medium", "large"]:
+            print("Model size not recongnize, switching to medium")
+            model_size = "medium"
+        model_size = sys.argv[2]
+    else:
+        model_size = "large"
+    print(f"Model size set to {model_size}")
+    # Size of the model to run, uncomment, recomment when needed
+    model = whisper.load_model(model_size, device="cpu")
+    # model = whisper.load_model("tiny", device="cpu")
+    # model = whisper.load_model("base", device="cpu")
+    # model = whisper.load_model("medium", device="cpu")
+    # model = whisper.load_model("large", device="cpu")
+
     source_audio_file = sys.argv[1]
     FOLDER_TEMP_AUDIO_CHUNKED = "./tmp_chunks_audio_speach2text"
     file_result = source_audio_file + "_transcribe_result.txt"
@@ -77,7 +86,7 @@ def main():
     print("File chunking")
     chunk_any_audio_long(source_audio_file, FOLDER_TEMP_AUDIO_CHUNKED)
     print("File Transcirption")
-    res = transcribe_from_temp_audio(FOLDER_TEMP_AUDIO_CHUNKED)
+    res = transcribe_from_temp_audio(model, FOLDER_TEMP_AUDIO_CHUNKED)
     print("Result")
     print(res)
     print(f"Result written to {file_result}")
