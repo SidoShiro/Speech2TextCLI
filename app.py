@@ -10,10 +10,10 @@ import shutil
 
 
 # Size of the model to run, uncomment, recomment when needed
-# model = whisper.load_model("tiny", device="cpu")
+model = whisper.load_model("tiny", device="cpu")
 # model = whisper.load_model("base", device="cpu")
 # model = whisper.load_model("medium", device="cpu")
-model = whisper.load_model("large", device="cpu")
+# model = whisper.load_model("large", device="cpu")
 
 
 def chunk_any_audio_long(path: str, path_temp_folder: str):
@@ -69,12 +69,13 @@ def inference_model(file_path: str):
     return out.get('text', 'N/A')
 
 def main():
+    source_audio_file = sys.argv[1]
     FOLDER_TEMP_AUDIO_CHUNKED = "./tmp_chunks_audio_speach2text"
-    file_result = sys.argv[1] + "_transcribe_result.txt"
-
+    file_result = source_audio_file + "_transcribe_result.txt"
+    file_result = file_result.replace(".mp3", "")
     print("Start")
     print("File chunking")
-    chunk_any_audio_long(sys.argv[1], FOLDER_TEMP_AUDIO_CHUNKED)
+    chunk_any_audio_long(source_audio_file, FOLDER_TEMP_AUDIO_CHUNKED)
     print("File Transcirption")
     res = transcribe_from_temp_audio(FOLDER_TEMP_AUDIO_CHUNKED)
     print("Result")
