@@ -1,7 +1,6 @@
 #!/bin/python
 import os
 import sys
-os.system("pip install git+https://github.com/openai/whisper.git")
 import gradio as gr
 import whisper
 from moviepy.editor import *
@@ -9,8 +8,8 @@ import time
 import shutil
 
 
-
 def chunk_any_audio_long(path: str, path_temp_folder: str):
+    """Seperate an audio into chunks of 60 seconds"""
     try:
         shutil.rmtree(path_temp_folder)
     except:
@@ -45,6 +44,7 @@ def chunk_any_audio_long(path: str, path_temp_folder: str):
 
 
 def transcribe_from_temp_audio(model: object, path_temp_folder: str):
+    """Get transcription of each chunk audio stored in the temp folder, and return a result"""
     files = os.listdir(path_temp_folder)
     # print(files)
     # files are in form : temp_NUMBER.mp3
@@ -58,11 +58,13 @@ def transcribe_from_temp_audio(model: object, path_temp_folder: str):
     return res
 
 def inference_model(model: object, file_path: str):
+    """Infer the model (Whisper, thanks OpenAI) to transcribe the chunked audio"""
     out = model.transcribe(file_path)
     # print(out)
     return out.get('text', 'N/A')
 
 def main():
+    """Entry of the Speech2textCli tool"""
     if len(sys.argv) == 3:
         if sys.argv[2] not in ["tiny", "small", "base", "medium", "large"]:
             print("Model size not recongnize, switching to medium")
@@ -70,14 +72,11 @@ def main():
         model_size = sys.argv[2]
     else:
         model_size = "large"
+    print("Speech2TextCLI")
+    print("==============")
     print(f"Model size set to {model_size}")
     # Size of the model to run, uncomment, recomment when needed
     model = whisper.load_model(model_size, device="cpu")
-    # model = whisper.load_model("tiny", device="cpu")
-    # model = whisper.load_model("base", device="cpu")
-    # model = whisper.load_model("medium", device="cpu")
-    # model = whisper.load_model("large", device="cpu")
-
     source_audio_file = sys.argv[1]
     FOLDER_TEMP_AUDIO_CHUNKED = "./tmp_chunks_audio_speach2text"
     file_result = source_audio_file + "_transcribe_result.txt"
@@ -85,7 +84,7 @@ def main():
     print("Start")
     print("File chunking")
     chunk_any_audio_long(source_audio_file, FOLDER_TEMP_AUDIO_CHUNKED)
-    print("File Transcirption")
+    print("File Transcription")
     res = transcribe_from_temp_audio(model, FOLDER_TEMP_AUDIO_CHUNKED)
     print("Result")
     print(res)

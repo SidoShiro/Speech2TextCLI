@@ -3,23 +3,24 @@
 ## Setup
 
 1. Require Python
-2. Create venv and enter in venv
+2. [Recommended (why to use venv](https://towardsdatascience.com/why-you-should-use-a-virtual-environment-for-every-python-project-c17dab3b0fd0) Create venv and enter in venv
     ```sh
-    $ python -m venv venv
-    $ . venv/bin/activate
+    python -m venv venv
+    . venv/bin/activate
     ```
 3. Install requirements
     ```sh
-    (venv) $ pip install -r requirements.txt
+    pip install -r requirements.txt
     ```
 
 ## Run
 
-With the venv activated.
+> With the venv activated.
 
 Usage:
+
 ```sh
-(venv) $ python app.py stuff.mp3
+python app.py stuff.mp3
 ```
 
 Result will be stored in stuff_transcribe_result.txt
