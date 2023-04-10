@@ -3,7 +3,7 @@
 ## Setup
 
 1. Require Python
-2. [Recommended (why to use venv](https://towardsdatascience.com/why-you-should-use-a-virtual-environment-for-every-python-project-c17dab3b0fd0) Create venv and enter in venv
+2. [Recommended (why to use venv)](https://towardsdatascience.com/why-you-should-use-a-virtual-environment-for-every-python-project-c17dab3b0fd0) Create venv and enter in venv
     ```sh
     python -m venv venv
     . venv/bin/activate
