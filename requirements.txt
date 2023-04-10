@@ -49,17 +49,6 @@ multidict==6.0.4
 networkx==3.0
 numba==0.56.4
 numpy==1.23.5
-nvidia-cublas-cu11==11.10.3.66
-nvidia-cuda-cupti-cu11==11.7.101
-nvidia-cuda-nvrtc-cu11==11.7.99
-nvidia-cuda-runtime-cu11==11.7.99
-nvidia-cudnn-cu11==8.5.0.96
-nvidia-cufft-cu11==10.9.0.58
-nvidia-curand-cu11==10.2.10.91
-nvidia-cusolver-cu11==11.4.0.1
-nvidia-cusparse-cu11==11.7.4.91
-nvidia-nccl-cu11==2.14.3
-nvidia-nvtx-cu11==11.7.91
 openai-whisper @ git+https://github.com/openai/whisper.git@6dea21fd7f7253bfe450f1e2512a0fe47ee2d258
 orjson==3.8.8
 packaging==23.0
@@ -89,7 +78,6 @@ toolz==0.12.0
 torch==2.0.0
 tqdm==4.65.0
 transformers==4.27.3
-triton==2.0.0
 typing_extensions==4.5.0
 uc-micro-py==1.0.1
 urllib3==1.26.15
