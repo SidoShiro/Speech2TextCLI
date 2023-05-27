@@ -2,16 +2,29 @@
 
 ## Setup
 
-1. Require Python
+1. Require [Python 3.10](https://www.python.org/downloads/release/python-3100/) and [FFMPEG installed](https://ffmpeg.org/) 
 2. [Recommended (why to use venv)](https://towardsdatascience.com/why-you-should-use-a-virtual-environment-for-every-python-project-c17dab3b0fd0) Create venv and enter in venv
     ```sh
     python -m venv venv
+    
+    # Linux
     . venv/bin/activate
+    # Windows
+    . venv/Script/activate
     ```
 3. Install requirements
     ```sh
+    # Make sure the (venv) is flag in the terminal
     pip install -r requirements.txt
     ```
+4. Fix ffmpeg install if failures : Uninstall and reinstall ffmpeg-python
+    ```
+    pip uninstall ffmpeg
+    pip uninstall ffmpeg-python
+
+    pip install ffmpeg-python
+    ```
+   
 
 ## Run
 
